@@ -6,7 +6,7 @@ import AppUpdater from "./AutoUpdate";
 
 async function createWindow() {
     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-    const appBounds: any = appConfig.get("setting.appBounds");
+    const appBounds: any = null
     const BrowserWindowOptions: BrowserWindowConstructorOptions = {
         width: 1200,
         minWidth: 900,
