@@ -40,12 +40,6 @@ async function createWindow() {
         mainWindow.setAlwaysOnTop(false);
     }, 1000);
 
-    // Open the DevTools.
-    if (isDev) {
-        mainWindow.webContents.openDevTools();
-    }
-
-
     ipcMain.handle('versions', () => {
         return {
             node: process.versions.chrome,
