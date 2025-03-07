@@ -1,17 +1,70 @@
 {
-	"devDependencies": {
-		"concurrently": "^9.1.2",
-		"electron": "^35.0.0",
-		"electron-builder": "^25.1.8",
-		"electron-devtools-installer": "^4.0.0",
-		"json": "^11.0.0",
-		"nodemon": "^3.1.9",
-		"typescript": "^5.8.2",
-		"wait-on": "^8.0.2"
-	},
-	"dependencies": {
-		"electron-log": "^5.3.2",
-		"electron-store": "^10.0.1",
-		"electron-updater": "^6.3.9"
-	}
+  "name": "list-program-electron",
+  "version": "1.0.0",
+  "description": "My vue list app put into an electron desktop app",
+  "main": "./dist/main.js",
+  "license": "MIT",
+  "author": "Skordio",
+  "scripts": {
+    "build": "tsc",
+    "watch": "nodemon --exec pnpm serve:electron",
+    "start": "pnpm nightly:rename && concurrently -k \"pnpm serve:front\" \"pnpm watch\"",
+    "front:setup": "cd FrontEndApp && pnpm",
+    "electron:setup": "pnpm",
+    "setup": "pnpm front:setup && pnpm electron:setup",
+    "serve:front": "cd FrontEndApp && pnpm dev",
+    "serve:electron": "set APP_IS_NIGHTLY=yes && set APP_IS_DEV=yes && pnpm build && wait-on tcp:3000 && electron .",
+    "build:front": "cd FrontEndApp && pnpm build",
+    "electron:build": "pnpm build",
+    "electron:builder": "electron-builder",
+    "app:build": "pnpm prod:rename && pnpm build:front && pnpm electron:build && pnpm electron:builder",
+    "app:build:nightly": "set APP_IS_NIGHTLY=yes && set APP_IS_DEV=no && pnpm nightly:rename && pnpm build:front && pnpm electron:build && pnpm electron:builder",
+    "nightly:rename": "json -I -f package.json -e \"this.name='list-program-electron'\" && json -I -f package.json -e \"this.build.productName='Electron Vue Nightly'\" && json -I -f package.json -e \"this.build.appId='com.official-list-program-electron.app'\"",
+    "prod:rename": "json -I -f package.json -e \"this.name='list-program-electron'\" && json -I -f package.json -e \"this.build.productName='Electron Vue'\" && json -I -f package.json -e \"this.build.appId='com.official-list-program-electron.app'\"",
+    "electron-rebuild": "./node_modules/.bin/electron-rebuild",
+    "sqlite-rebuild": "cd node_modules/better-sqlite3 && npm run build-release",
+    "postinstall": "electron-builder install-app-deps",
+    "up:win": "up_using_window.cmd"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-devtools-installer": "^4.0.0",
+    "json": "^11.0.0",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.8.2",
+    "wait-on": "^8.0.2"
+  },
+  "dependencies": {
+    "electron-log": "^5.3.2",
+    "electron-store": "^10.0.1",
+    "electron-updater": "^6.3.9"
+  },
+  "build": {
+    "appId": "com.official-list-program-electron.app",
+    "productName": "Electron Vue Nightly",
+    "copyright": "Copyright © 2022 ${author}",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Bible-Projects"
+      }
+    ],
+    "nsis": {
+      "oneClick": true,
+      "allowToChangeInstallationDirectory": false,
+      "deleteAppDataOnUninstall": true
+    },
+    "files": [
+      "dist/**/*"
+    ],
+    "extraResources": [
+      "defaults/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist_electron"
+    }
+  }
 }
