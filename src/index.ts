@@ -1,6 +1,11 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 
+import { createApp } from 'vue'
+// import './src/style.css'
+import App from './App.vue'
+
+
 app.on('ready', () => {
   console.log('App is ready');
 
@@ -11,6 +16,8 @@ app.on('ready', () => {
     
   const indexHTML = path.join(__dirname + '/index.html');
   win.loadFile(indexHTML).then(() => {
-      // IMPLEMENT FANCY STUFF HERE
+
+    const vueApp = createApp(App)
+    vueApp.mount('#app')
   });
 });
