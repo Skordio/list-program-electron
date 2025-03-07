@@ -19,12 +19,11 @@
     "electron:builder": "electron-builder",
     "app:build": "pnpm prod:rename && pnpm build:front && pnpm electron:build && pnpm electron:builder",
     "app:build:nightly": "set APP_IS_NIGHTLY=yes && set APP_IS_DEV=no && pnpm nightly:rename && pnpm build:front && pnpm electron:build && pnpm electron:builder",
-    "nightly:rename": "json -I -f package.json -e \"this.name='list-program-electron'\" && json -I -f package.json -e \"this.build.productName='Electron Vue Nightly'\" && json -I -f package.json -e \"this.build.appId='com.official-list-program-electron.app'\"",
-    "prod:rename": "json -I -f package.json -e \"this.name='list-program-electron'\" && json -I -f package.json -e \"this.build.productName='Electron Vue'\" && json -I -f package.json -e \"this.build.appId='com.official-list-program-electron.app'\"",
+    "nightly:rename": "json -I -f package.json -e \"this.name='list-program-electron'\" && json -I -f package.json -e \"this.build.productName='List Program Electron Nightly'\" && json -I -f package.json -e \"this.build.appId='com.official-list-program-electron.app'\"",
+    "prod:rename": "json -I -f package.json -e \"this.name='list-program-electron'\" && json -I -f package.json -e \"this.build.productName='List Program Electron'\" && json -I -f package.json -e \"this.build.appId='com.official-list-program-electron.app'\"",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild",
     "sqlite-rebuild": "cd node_modules/better-sqlite3 && npm run build-release",
-    "postinstall": "electron-builder install-app-deps",
-    "up:win": "up_using_window.cmd"
+    "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
@@ -43,7 +42,7 @@
   },
   "build": {
     "appId": "com.official-list-program-electron.app",
-    "productName": "Electron Vue Nightly",
+    "productName": "List Program Electron",
     "copyright": "Copyright © 2022 ${author}",
     "publish": [
       {
