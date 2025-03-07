@@ -42,7 +42,7 @@
   },
   "build": {
     "appId": "com.official-list-program-electron.app",
-    "productName": "List Program Electron",
+    "productName": "List Program Electron Nightly",
     "copyright": "Copyright © 2022 ${author}",
     "publish": [
       {
